@@ -7,24 +7,26 @@ class Book extends Component {
   }
   
   render() {
-    const {moveShelves, books, shelf} = this.props
-    
+    const {moveShelves, books, title} = this.props
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{shelf}</h2>
+        <h2 className="bookshelf-title">{title}</h2>
         <div className="bookshelf-books">
             <ol className='books-grid'>
               {books.map((book) => (
               <li key={book.id} className='book'>
                   <div className='book-top'>
-                    <div className='book-cover' style={{
-                    width: 128, height: 193,
-                    backgroundImage: `url(${book.imageLinks.thumbnail})`
-                    }}/>
+                    <div className='book-cover' 
+                    style={
+                      {backgroundImage: book.imageLinks && `url(${book.imageLinks.thumbnail})`,
+                       width: 128,
+                       height: 193
+                      }}/>
                     <div className="book-shelf-changer">
                         <select
                           onChange={(event) => moveShelves(book, event.target.value)}
-                          defaultValue="none">
+                          defaultValue="none"
+                          value={book.shelf}>
                           <option value="move" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
@@ -38,7 +40,7 @@ class Book extends Component {
                         <p>{book.title}</p>
                     </div>
                     <div className='book-authors'>
-                        <p>{book.authors}</p>
+                        <p>{book.authors ? book.authors : ''}</p>
                     </div>
                   </div>
               </li>

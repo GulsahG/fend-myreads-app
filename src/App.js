@@ -23,8 +23,9 @@ class BooksApp extends Component {
 
     // moves the books to their correct shelves
     moveShelves = (book, shelf) => {
-      BooksAPI.update(book, shelf)
-      this.getBooks()
+      BooksAPI.update(book, shelf).then(() => {
+        this.getBooks()
+      })
     }
 
     render() {

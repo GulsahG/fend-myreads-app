@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
             
 class SearchPage extends Component {
@@ -46,8 +45,7 @@ class SearchPage extends Component {
       //it creates a showingBooks array from the filtered results
       let showingBooks
       if(query) {
-        const match = new RegExp(escapeRegExp(query), 'i')
-        showingBooks = books.filter((book) => match.test(book.title))
+        showingBooks = books
       } else {
         showingBooks = books
       }
@@ -85,9 +83,12 @@ class SearchPage extends Component {
                                 <div className="book-top">
                                 <div
                                     className="book-cover"
-                                    style={ showingBook && showingBook.imageLinks && showingBook.imageLinks.thumbnail && { backgroundImage: `url(${showingBook.imageLinks.thumbnail})`,
-                                    width: 128, height: 193, }}
-                                />
+                                    style={
+                                       {backgroundImage: showingBook.imageLinks && `url(${showingBook.imageLinks.thumbnail})`,
+                                        width: 128,
+                                        height: 193
+                                       }}
+                                    />
                                 <div className="book-shelf-changer">
                                 <select
                                     onChange={(event) => moveShelves(showingBook, event.target.value)}
@@ -105,7 +106,7 @@ class SearchPage extends Component {
                                 </div>
                                 <div className='book-details'>
                                     <div className='book-title'><p>{showingBook.title}</p></div>
-                                    <div className='book-authors'><p>{showingBook.authors}</p></div>
+                                    <div className='book-authors'><p>{showingBook.authors ? showingBook.authors : ''}</p></div>
                                 </div>
                             </li>
                             </div>

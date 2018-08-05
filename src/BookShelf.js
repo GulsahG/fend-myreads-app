@@ -8,33 +8,29 @@ class BookShelf extends Component {
     static propTypes = {
       books: PropTypes.array.isRequired
     }
+    
     render() {
+        const shelves = {
+          currentlyReading: ['Currently Reading', 'currentlyReading'],
+          wantToRead: ['Want to Read', 'wantToRead'],
+          read: ['Read', 'read']
+        } 
         const { books, moveShelves } = this.props
+
         return (
             <div className="list-books">
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
-      
               <div className="list-books-content">
-                  <Book
-                  key="currently"
-                  books={books.filter(book => book.shelf === "currentlyReading")}
-                  shelf="Currently Reading"
-                  moveShelves={moveShelves}
-                  />
-                  <Book
-                    key="wantToRead"
-                    books={books.filter(book => book.shelf === "wantToRead")}
-                    shelf="Want to Read"
+                { Object.keys(shelves).map((shelf) =>
+                  <Book key={shelf}
+                    title={shelves[shelf][0]}
+                    shelf={shelves[shelf][1]}
+                    books={ books.filter(book => book.shelf === shelves[shelf][1]) }
                     moveShelves={moveShelves}
                   />
-                  <Book
-                    key="read"
-                    books={books.filter(book => book.shelf === "read")}
-                    shelf="Read"
-                    moveShelves={moveShelves}
-                  />
+                )}
             </div>
             <div className="open-search">
               <Link to="/search">Add a book</Link>
