@@ -9,7 +9,7 @@
 3. [Create React App](#create-react-app)
 3. [Contributing](#contributing)
 
-##The Project
+## The Project
 
 * My Reads Project in the 7th project of the Udacity's Front-end Web Development Nanodegree course which I am a student of.
 * With this project, you could have your own library with 3 different book shelves.
@@ -20,7 +20,7 @@
 
 ## Installation
 
-* clone or download the project from [here](https://github.com/GulsahG/mws-restaurant-stage-1.git)
+* clone or download the project from [here](https://github.com/GulsahG/fend-myreads-app.git)
 * install all project dependencies with `npm install` 
 * start the server with `npm start`
 
