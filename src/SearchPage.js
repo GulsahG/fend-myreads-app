@@ -10,10 +10,12 @@ class SearchPage extends Component {
         books: []
     }
 
+    // updates query as input changes
     updateQuery = (query) => {
         this.setState({ query: query.trim() })
     }
   
+    // clears the query and books array
     clearQuery = () => {
         this.setState({ query: '', books: [] })
     }
