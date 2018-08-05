@@ -5,14 +5,16 @@ class Book extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired
   }
-
+  
   render() {
+    const {moveShelves, books, shelf} = this.props
+    
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.shelf}</h2>
+        <h2 className="bookshelf-title">{shelf}</h2>
         <div className="bookshelf-books">
             <ol className='books-grid'>
-              {this.props.books.map((book) => (
+              {books.map((book) => (
               <li key={book.id} className='book'>
                   <div className='book-top'>
                     <div className='book-cover' style={{
@@ -20,7 +22,8 @@ class Book extends Component {
                     backgroundImage: `url(${book.imageLinks.thumbnail})`
                     }}/>
                     <div className="book-shelf-changer">
-                        <select value={book.shelf}
+                        <select
+                          onChange={(event) => moveShelves(book, event.target.value)}
                           defaultValue="none">
                           <option value="move" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>

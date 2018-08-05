@@ -9,7 +9,7 @@ class BookShelf extends Component {
       books: PropTypes.array.isRequired
     }
     render() {
-        const { books } = this.props
+        const { books, moveShelves } = this.props
         return (
             <div className="list-books">
               <div className="list-books-title">
@@ -21,16 +21,19 @@ class BookShelf extends Component {
                   key="currently"
                   books={books.filter(book => book.shelf === "currentlyReading")}
                   shelf="Currently Reading"
+                  moveShelves={moveShelves}
                   />
                   <Book
                     key="wantToRead"
                     books={books.filter(book => book.shelf === "wantToRead")}
                     shelf="Want to Read"
+                    moveShelves={moveShelves}
                   />
                   <Book
                     key="read"
                     books={books.filter(book => book.shelf === "read")}
                     shelf="Read"
+                    moveShelves={moveShelves}
                   />
             </div>
             <div className="open-search">

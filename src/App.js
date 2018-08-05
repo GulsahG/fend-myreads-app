@@ -7,13 +7,24 @@ import './App.css'
 
 class BooksApp extends Component {
     state = {
-        books: []
+      books: []
     }
 
     componentDidMount() {
+      this.getBooks()
+    }
+
+    // gets all books data and updates the books array
+    getBooks() {
       BooksAPI.getAll().then((books) => {
-      this.setState({ books })
+        this.setState({ books })
       })
+    }
+
+    // moves the books to their correct shelves
+    moveShelves = (book, shelf) => {
+      BooksAPI.update(book, shelf)
+      this.getBooks()
     }
 
     render() {
@@ -21,13 +32,14 @@ class BooksApp extends Component {
         <div className="app">
           <Route path="/search" render={() => (
             <SearchPage
-            books={this.state.books}/> 
+            books={this.state.books}
+            moveShelves={this.moveShelves}/> 
           )}/>
           <Route exact path="/" render={() => (
             <BookShelf
-            books={this.state.books}/>
+            books={this.state.books}
+            moveShelves={this.moveShelves}/>
           )}/>
-         
         </div>
       )
     }
