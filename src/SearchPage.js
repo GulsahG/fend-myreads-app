@@ -11,7 +11,7 @@ class SearchPage extends Component {
 
     // updates query as input changes
     updateQuery = (query) => {
-        this.setState({ query: query.trim() })
+        this.setState({ query: query })
     }
   
     // clears the query and books array
@@ -27,6 +27,7 @@ class SearchPage extends Component {
         } 
         // if there's, it filters the books accordingly with the input
         else {
+            if(query.trim()) {
             this.updateQuery(query)
             BooksAPI.search(query, 20).then(books => {
                 if(!books.error) {
@@ -34,9 +35,11 @@ class SearchPage extends Component {
                     this.setState({ books })
                 } else {
                     console.log(books.error)
+                    this.setState({ books: [] })
                 }
             })
-        }
+            }
+        }   
     }
     render() {
       const { query, books } = this.state
@@ -74,11 +77,8 @@ class SearchPage extends Component {
                         //if they're already selected
                         showingBooks.map((showingBook) => {
                         let shelf
-                        this.props.books.map((b) => {
-                            b.id === showingBook.id ? shelf = b.shelf : ''
-                        })
+                        this.props.books.map((b) => b.id === showingBook.id ? shelf = b.shelf : '');
                         return (
-                            <div>
                             <li key={showingBook.id} className="book" shelf="None">
                                 <div className="book-top">
                                 <div
@@ -109,7 +109,6 @@ class SearchPage extends Component {
                                     <div className='book-authors'><p>{showingBook.authors ? showingBook.authors : ''}</p></div>
                                 </div>
                             </li>
-                            </div>
                         )
                         })
                     }
